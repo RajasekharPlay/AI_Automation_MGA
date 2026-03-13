@@ -1,7 +1,7 @@
 import { expect, Page } from '@playwright/test';
 import SkyeAttributeCommands from "./SkyeAttributeCommands";
 
-export default class BanorteCommands {
+export default class MGACommands {
     page: Page;
     skye: SkyeAttributeCommands;
 

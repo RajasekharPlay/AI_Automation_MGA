@@ -4,24 +4,6 @@ import { DateManager } from './DateManager';
 import {CustomPlaywrightError} from "../errors/CustomPlaywrightError";
 
 export class GenericUtils {
-    static async replacePlaceholders(
-        template: string,
-        values: { [key: string]: string }
-    ): Promise<string> {
-        return template.replace(/{{(.*?)}}/g, (_, key) => values[key.trim()] || 'VALUE NOT FOUND');
-    }
-
-    static async importStringFromFile(
-        filePath:string,
-        encoding:string
-    ): Promise<string> {
-        try {
-            return await fs.readFile(filePath, encoding as BufferEncoding);
-        } catch (err) {
-            throw new Error(`Error while reading from xml template: ${filePath} with error ${err.message}`);
-        }
-    }
-
     static generateUniqueString(
     ):string {
         const currentDate = DateManager.increaseCurrDateWithDays(0);

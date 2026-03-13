@@ -13,20 +13,11 @@
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.51.1",
-    "@types/axios": "^0.14.4",
     "@types/luxon": "^3.4.2",
-    "@types/cheerio": "^0.22.35",
     "@types/node": "^22.5.4"
   },
   "dependencies": {
-    "@types/cookie": "^0.6.0",
-    "axios": "^1.7.8",
-    "cheerio": "^1.0.0",
-    "cookie": "^1.0.2",
     "dotenv": "^16.4.5",
-    "fast-xml-parser": "^4.5.0",
-    "luxon": "^3.6.0",
-    "formdata-node": "^6.0.3",
-    "pretty-data": "^0.40.0"
+    "luxon": "^3.6.0"
   }
 }

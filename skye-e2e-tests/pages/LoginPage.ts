@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 
 export default class LoginPage{
     page:Page;
-    url = '/page/customerportal/es/MX/index';
+    url = '/page/internal/en/US/index';
     constructor(page:Page){
         this.page = page
     }
@@ -12,9 +12,9 @@ export default class LoginPage{
     }
 
     async login(email:string, password:string){
-        await this.page.getByPlaceholder('correo electrónico').fill(email);
-        await this.page.getByPlaceholder('contraseña').fill(password);
-        await this.page.getByRole('button', { name: 'Iniciar Sesión'}).click();
+        await this.page.getByPlaceholder('Enter username').fill(email);
+        await this.page.getByPlaceholder('Password here').fill(password);
+        await this.page.getByRole('button', { name: 'Log in'}).click();
     }
 
     async isLoggedIn(): Promise<boolean> {

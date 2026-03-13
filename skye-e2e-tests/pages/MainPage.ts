@@ -2,7 +2,7 @@ import { Page } from "@playwright/test";
 import BasePage from "./BasePage";
 
 export default class MainPage extends BasePage {
-    private url = '/page/customerportal/es/MX/index';
+    private url = '/page/internal/en/US/index';
 
     constructor(page:Page){
         super(page);
@@ -20,7 +20,7 @@ export default class MainPage extends BasePage {
     }
 
     async isLoaded(): Promise<boolean> {
-        await this.page.waitForSelector('div.custom-cards-list.horizontal');
-        return await this.page.isVisible('div.custom-cards-list.horizontal');
+        await this.page.waitForSelector('sk-app');
+        return await this.page.isVisible('sk-app');
     }
 }
