@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="playground test" type="JavaScriptTestRunnerPlaywright">
+    <node-interpreter value="project" />
+    <playwright-package value="$PROJECT_DIR$/skye-e2e-tests/node_modules/@playwright/test" />
+    <working-dir value="$PROJECT_DIR$/skye-e2e-tests" />
+    <envs />
+    <scope-kind value="TEST" />
+    <test-file value="$PROJECT_DIR$/skye-e2e-tests/tests/playground.spec.ts" />
+    <test-names>
+      <test-name value="playground" />
+    </test-names>
+    <method v="2" />
+  </configuration>
+</component>

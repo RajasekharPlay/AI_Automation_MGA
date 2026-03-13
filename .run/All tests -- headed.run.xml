@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All tests -- headed" type="JavaScriptTestRunnerPlaywright">
+    <node-interpreter value="project" />
+    <playwright-package value="$PROJECT_DIR$/skye-e2e-tests/node_modules/@playwright/test" />
+    <working-dir value="$PROJECT_DIR$/skye-e2e-tests" />
+    <cli-options value="--headed" />
+    <envs />
+    <scope-kind value="ALL" />
+    <method v="2" />
+  </configuration>
+</component>

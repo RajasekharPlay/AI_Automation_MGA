@@ -1,0 +1,11 @@
+/.idea/
+**/node_modules/
+/skye-e2e-tests/cypress/downloads
+/skye-e2e-tests/cypress/fixtures
+/skye-e2e-tests/playwright-report
+/reports
+/skye-e2e-tests/tests/playground.spec.ts
+.DS_Store
+/skye-e2e-tests/playwright
+/skye-e2e-tests/test-results
+/skye-e2e-tests/.env
