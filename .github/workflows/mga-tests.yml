@@ -75,11 +75,12 @@ jobs:
         run: |
           TEST_FILE="${{ github.event.inputs.test_file }}"
           MODE="${{ github.event.inputs.execution_mode }}"
-          HEADED_FLAG=""
           if [ "$MODE" = "headed" ]; then
-            HEADED_FLAG="--headed"
+            # GitHub Actions has no display — use Xvfb virtual framebuffer for headed mode
+            xvfb-run --auto-servernum -- npx playwright test "$TEST_FILE" --project=mga-chromium --headed
+          else
+            npx playwright test "$TEST_FILE" --project=mga-chromium
           fi
-          npx playwright test "$TEST_FILE" --project=mga-chromium $HEADED_FLAG
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
