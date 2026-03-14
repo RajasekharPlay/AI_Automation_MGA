@@ -1,0 +1,90 @@
+name: MGA Playwright Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_file:
+        description: 'Spec file (relative to skye-e2e-tests/)'
+        required: true
+        default: 'tests/MGA_Validate.spec.ts'
+      browser:
+        description: 'Browser (chromium/firefox/webkit)'
+        required: false
+        default: 'chromium'
+      environment:
+        description: 'Environment (dev/sit/uat)'
+        required: false
+        default: 'dev'
+      execution_mode:
+        description: 'Execution mode (headless/headed)'
+        required: false
+        default: 'headless'
+      device:
+        description: 'Device'
+        required: false
+        default: 'Desktop Chrome'
+      pw_host:
+        description: 'Test HOST URL'
+        required: false
+        default: 'https://skye1.dev.mga.innoveo-skye.net'
+      pw_testuser:
+        description: 'Test username'
+        required: false
+        default: 'usercc'
+      pw_password:
+        description: 'Test password'
+        required: false
+        default: 'MGA@1234'
+      pw_email:
+        description: 'Test email'
+        required: false
+        default: 'yash.bodhale+MGAUA@tinubu.com'
+
+jobs:
+  mga-tests:
+    name: MGA Playwright Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: skye-e2e-tests
+    env:
+      pw_HOST: ${{ github.event.inputs.pw_host }}
+      pw_TESTUSER: ${{ github.event.inputs.pw_testuser }}
+      pw_PASSWORD: ${{ github.event.inputs.pw_password }}
+      pw_EMAIL: ${{ github.event.inputs.pw_email }}
+      CI: 'true'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: skye-e2e-tests/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium + deps
+        run: npx playwright install --with-deps chromium
+
+      - name: Run MGA Playwright tests
+        run: |
+          TEST_FILE="${{ github.event.inputs.test_file }}"
+          MODE="${{ github.event.inputs.execution_mode }}"
+          HEADED_FLAG=""
+          if [ "$MODE" = "headed" ]; then
+            HEADED_FLAG="--headed"
+          fi
+          npx playwright test "$TEST_FILE" --project=mga-chromium $HEADED_FLAG
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ github.run_id }}
+          path: skye-e2e-tests/playwright-report/
+          retention-days: 30
