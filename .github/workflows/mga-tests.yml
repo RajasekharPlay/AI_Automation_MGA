@@ -7,6 +7,10 @@ on:
         description: 'Spec file (relative to skye-e2e-tests/)'
         required: true
         default: 'tests/MGA_Validate.spec.ts'
+      branch:
+        description: 'Git branch that contains the spec file'
+        required: false
+        default: 'main'
       browser:
         description: 'Browser (chromium/firefox/webkit)'
         required: false
@@ -43,9 +47,7 @@ on:
 jobs:
   mga-tests:
     name: MGA Playwright Tests
-    # Self-hosted runner required: the test app is on a private/internal network
-    # not reachable from GitHub's cloud runners.
-    # Setup: GitHub → AI_Automation_MGA → Settings → Actions → Runners → New self-hosted runner
+    # Self-hosted runner: test app is on a private network not reachable from GitHub cloud.
     runs-on: self-hosted
     defaults:
       run:
@@ -60,6 +62,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || 'main' }}
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -80,6 +85,7 @@ jobs:
         run: |
           TEST_FILE="${{ github.event.inputs.test_file }}"
           MODE="${{ github.event.inputs.execution_mode }}"
+          echo "Running: $TEST_FILE on branch ${{ github.event.inputs.branch }}"
           if [ "$MODE" = "headed" ]; then
             npx playwright test "$TEST_FILE" --project=mga-chromium --headed
           else
