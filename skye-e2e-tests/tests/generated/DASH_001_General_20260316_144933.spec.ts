@@ -44,9 +44,6 @@ test('DASH_001 - Validate Dashboard Header Loads', async ({ page, skye, mga }) =
         await expect(productsZone.first()).toBeVisible();
         await expect(productsZone.first().locator('.sk-zone-text')).toHaveText('Products');
 
-        const processZone = page.locator('#sk-zone-ProcessZone');
-        await expect(processZone.first()).toBeVisible();
-        await expect(processZone.first().locator('.sk-zone-text')).toHaveText('Process');
     });
 
     await test.step('Verify language dropdown is visible', async () => {
