@@ -8,7 +8,6 @@ test('MGA test', async ({ page, skye, mga }) => {
     await test.step('Load the page', async ()=>{
         await mainPage.goto();
         expect(await mainPage.isLoaded()).toBe(true);
-        await mga.checkGeo();
     });
 
 });

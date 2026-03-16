@@ -19,8 +19,8 @@ export default class LoginPage{
 
     async isLoggedIn(): Promise<boolean> {
         await this.page.waitForURL(this.url);
-/*         await this.page.waitForSelector('a.sk-logout');
-        return await this.page.isVisible('a.sk-logout'); */
+         await this.page.waitForSelector('sk-logout');
+        return await this.page.isVisible('sk-logout');
         return true;
     }
 
