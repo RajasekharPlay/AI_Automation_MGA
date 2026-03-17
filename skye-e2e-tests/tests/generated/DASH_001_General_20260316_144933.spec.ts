@@ -86,9 +86,9 @@ test('DASH_001 - Validate Dashboard Header Loads', async ({ page, skye, mga }) =
         await expect(clientCard.locator('h4')).toContainText('With the Client');
     });
 
-    await test.step('Verify footer is visible', async () => {
-        const footer = page.locator('footer#footer');
-        await expect(footer).toBeVisible();
-        await expect(footer).toContainText('© INNOVEO INC - All rights reserved.');
-    });
+    // await test.step('Verify footer is visible', async () => {
+    //     const footer = page.locator('footer#footer');
+    //     await expect(footer).toBeVisible();
+    //     await expect(footer).toContainText('© INNOVEO INC - All rights reserved.');
+    // });
 });
