@@ -20,7 +20,7 @@ export default class MainPage extends BasePage {
     }
 
     async isLoaded(): Promise<boolean> {
-        await this.page.waitForSelector('sk-app');
-        return await this.page.isVisible('sk-app');
+        await this.page.waitForSelector('#sk-app');
+        return await this.page.isVisible('#sk-app');
     }
 }
