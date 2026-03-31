@@ -44,6 +44,12 @@ test('DASH_001 - Validate Dashboard Header Loads', async ({ page, skye, mga }) =
         await expect(productsZone.first()).toBeVisible();
         await expect(productsZone.first().locator('.sk-zone-text')).toHaveText('Products');
 
+<<<<<<< Updated upstream
+=======
+        const processZone = page.locator('#sk-zone-ProcessZone');
+        await expect(processZone.first()).toBeVisible();
+        await expect(processZone.first().locator('.sk-zone-text')).toHaveText('Process');
+>>>>>>> Stashed changes
     });
 
     await test.step('Verify language dropdown is visible', async () => {
@@ -86,9 +92,17 @@ test('DASH_001 - Validate Dashboard Header Loads', async ({ page, skye, mga }) =
         await expect(clientCard.locator('h4')).toContainText('With the Client');
     });
 
+<<<<<<< Updated upstream
     // await test.step('Verify footer is visible', async () => {
     //     const footer = page.locator('footer#footer');
     //     await expect(footer).toBeVisible();
     //     await expect(footer).toContainText('© INNOVEO INC - All rights reserved.');
     // });
+=======
+    await test.step('Verify footer is visible', async () => {
+        const footer = page.locator('footer#footer');
+        await expect(footer).toBeVisible();
+        await expect(footer).toContainText('© INNOVEO INC - All rights reserved.');
+    });
+>>>>>>> Stashed changes
 });

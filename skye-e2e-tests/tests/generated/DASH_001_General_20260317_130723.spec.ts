@@ -29,7 +29,11 @@ test.describe('MGA Dashboard Validation Tests', () => {
             await expect(navMenu, 'Navigation menu should be visible').toBeVisible();
 
             // Verify menu zones are present (Home, My Tasks, Reporting, Products, Process)
+<<<<<<< Updated upstream
             const homeZone = page.locator('#sk-zone-HomeZone');
+=======
+            const homeZone = page.locator('#sk-zone-HomeZone').nth(0);
+>>>>>>> Stashed changes
             await expect(homeZone, 'Home menu item should be visible').toBeVisible();
 
             const tasksZone = page.locator('#sk-zone-Tasks');
