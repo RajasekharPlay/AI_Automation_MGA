@@ -4,50 +4,49 @@ on:
   workflow_dispatch:
     inputs:
       test_file:
-        description: 'Spec file (relative to skye-e2e-tests/)'
+        description: "Spec file (relative to skye-e2e-tests/ or full path)"
         required: true
-        default: 'tests/MGA_Validate.spec.ts'
+        default: "tests/MGA_Validate.spec.ts"
       branch:
-        description: 'Git branch that contains the spec file'
+        description: "Git branch that contains the spec file"
         required: false
-        default: 'main'
+        default: "main"
       browser:
-        description: 'Browser (chromium/firefox/webkit)'
+        description: "Browser (chromium/firefox/webkit)"
         required: false
-        default: 'chromium'
+        default: "chromium"
       environment:
-        description: 'Environment (dev/sit/uat)'
+        description: "Environment (dev/sit/uat)"
         required: false
-        default: 'dev'
+        default: "dev"
       execution_mode:
-        description: 'Execution mode (headless/headed)'
+        description: "Execution mode (headless/headed)"
         required: false
-        default: 'headless'
+        default: "headless"
       device:
-        description: 'Device'
+        description: "Device"
         required: false
-        default: 'Desktop Chrome'
+        default: "Desktop Chrome"
       pw_host:
-        description: 'Test HOST URL'
+        description: "Test HOST URL"
         required: false
-        default: 'https://skye1.dev.mga.innoveo-skye.net'
+        default: "https://skye1.dev.mga.innoveo-skye.net"
       pw_testuser:
-        description: 'Test username'
+        description: "Test username"
         required: false
-        default: 'usercc'
+        default: "usercc"
       pw_password:
-        description: 'Test password'
+        description: "Test password"
         required: false
-        default: 'MGA@1234'
+        default: "MGA@1234"
       pw_email:
-        description: 'Test email'
+        description: "Test email"
         required: false
-        default: 'yash.bodhale+MGAUA@tinubu.com'
+        default: "yash.bodhale+MGAUA@tinubu.com"
 
 jobs:
   mga-tests:
     name: MGA Playwright Tests
-    # Self-hosted runner: test app is on a private network not reachable from GitHub cloud.
     runs-on: self-hosted
     defaults:
       run:
@@ -57,19 +56,19 @@ jobs:
       pw_TESTUSER: ${{ github.event.inputs.pw_testuser }}
       pw_PASSWORD: ${{ github.event.inputs.pw_password }}
       pw_EMAIL: ${{ github.event.inputs.pw_email }}
-      CI: 'true'
+      CI: "true"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.branch || 'main' }}
+          ref: ${{ github.event.inputs.branch || "main" }}
           fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm ci
@@ -81,7 +80,9 @@ jobs:
 
       - name: Run MGA Playwright tests
         run: |
-          TEST_FILE="${{ github.event.inputs.test_file }}"
+          # Strip skye-e2e-tests/ prefix if present (working-directory is already skye-e2e-tests/)
+          RAW_FILE="${{ github.event.inputs.test_file }}"
+          TEST_FILE="${RAW_FILE#skye-e2e-tests/}"
           MODE="${{ github.event.inputs.execution_mode }}"
           echo "Running: $TEST_FILE on branch ${{ github.event.inputs.branch }}"
           if [ "$MODE" = "headed" ]; then
